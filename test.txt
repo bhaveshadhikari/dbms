@@ -87,3 +87,104 @@ else 'worse'
 end;
 
 */
+
+
+
+
+CREATE TABLE Lecturer (
+    lid INTEGER,
+    lname VARCHAR(255),
+    semester INTEGER
+);
+
+CREATE TABLE Subject (
+    scode INTEGER,
+    sname VARCHAR(255),
+    credit INTEGER
+);
+
+-- i. Display the name of all Lecturers
+SELECT lname FROM Lecturer;
+
+-- ii. Display the name of those Lecturers whose id is ‘105’
+SELECT lname FROM Lecturer WHERE lid = '105';
+
+-- iii. List the name of all the subjects of 6 credit hours.
+SELECT sname FROM Subject WHERE credit = 6;
+
+-- iv. Update or modify the name of lecturer ‘John’ with ‘Joseph’
+UPDATE Lecturer SET lname = 'Joseph' WHERE lname = 'John';
+
+-- v. Delete the lecturer ‘John’ from the lecturer relation.
+DELETE FROM Lecturer WHERE lname = 'John';
+
+
+Professor(ssn: string, profname: string, status: string)
+Course(crcode: string, crsname: string, credits: integer)
+
+-- i. Display the records of all Professors
+SELECT * FROM Professor;
+
+-- ii. Display the name of those Professors whose status is null.
+SELECT profname FROM Professor WHERE status IS NULL;
+
+-- iii. List all the course names of 3 credit hours.
+SELECT crsname FROM Course WHERE credits = 3;
+
+-- iv. List name and status of professor whose name is ‘Ram’
+SELECT profname, status FROM Professor WHERE profname = 'Ram';
+
+-- v. Delete the professor “Hari” from the professor relation
+DELETE FROM Professor WHERE profname = 'Hari';
+
+CREATE TABLE Author (
+    aid INTEGER PRIMARY KEY,
+    name VARCHAR(20) CHECK (LENGTH(name) <= 20),
+    age INTEGER CHECK (age > 10),
+    gender VARCHAR(10) DEFAULT 'unknown',
+    address VARCHAR(255)
+);
+
+CREATE TABLE Writes (
+    bid INTEGER PRIMARY KEY,
+    publishdate DATE,
+    bookname VARCHAR(255),
+    ISBN VARCHAR(255) NOT NULL
+);
+
+Actor(aid,name,age,gender,salary)
+Movie(mid,title,budget)
+-- a. Display the information of female actors
+SELECT * FROM Actor WHERE gender = 'female';
+
+-- b. Display the id, name and salary of male actor with minimum salary
+SELECT aid, name, salary FROM Actor WHERE gender = 'male' ORDER BY salary LIMIT 1;
+
+-- c. Display the name and budget of the movies which name start from ‘H’
+SELECT title, budget FROM Movie WHERE title LIKE 'H%';
+
+-- d. Display title of movie which budget is greater than 100000
+SELECT title FROM Movie WHERE budget > 100000;
+
+-- e. Delete record of actor whose age is either less than 17 or name consists of letter ‘a’
+DELETE FROM Actor WHERE age < 17 OR name LIKE '%a%';
+
+
+
+-- Create table
+CREATE TABLE Instructor (
+    SSN NUMBER(4) PRIMARY KEY,
+    Name VARCHAR(20) NOT NULL,
+    Login VARCHAR(10) UNIQUE,
+    Age NUMBER(4),
+    Salary NUMBER(6,2)
+);
+
+-- Add single record
+INSERT INTO Instructor (SSN, Name, Login, Age, Salary) VALUES (1234, 'John Doe', 'johnny', 40, 50000.00);
+
+-- Display records of instructors whose login consists of letter ‘a’ and age is more than 35
+SELECT * FROM Instructor WHERE Login LIKE '%a%' AND Age > 35;
+
+-- Find SSN, name, and age of instructor who is paid with the highest salary
+SELECT SSN, Name, Age FROM Instructor WHERE Salary = (SELECT MAX(Salary) FROM Instructor);
